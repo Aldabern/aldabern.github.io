@@ -1,0 +1,19 @@
+---
+import Carousel from "./carousel.svelte";
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const gallery: ExtendGalleryType[] = await getCollection("gallery");
+
+for (let index = 0; index < gallery.length; index++) {
+  const convert = await getImage({
+    src: gallery[index].data.img,
+  });
+
+  gallery[index].imageResult = convert;
+}
+
+const showcase = gallery.filter((image) => image.data.showcase === true);
+---
+
+<Carousel images={showcase} client:idle />
