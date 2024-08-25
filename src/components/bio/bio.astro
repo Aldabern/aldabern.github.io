@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import Avatar from "$assets/avatar.png";
+import Typewriter from "./typewriter.svelte";
+---
+
+<section class="mt-4 flex items-center justify-center gap-4 px-96">
+  <Image src={Avatar} alt="Avatar" />
+  <div class="flex-grow">
+    <Typewriter client:load />
+  </div>
+</section>
+
+<style>
+  section {
+    position: relative;
+  }
+
+  section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+</style>
