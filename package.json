@@ -14,8 +14,17 @@
     "@astrojs/svelte": "^5.7.0",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.14.5",
+    "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-svelte": "^8.2.0",
     "svelte": "5.0.0-next.237",
     "tailwindcss": "^3.4.10",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typewriter-effect": "^2.21.0"
+  },
+  "devDependencies": {
+    "embla-carousel": "^8.2.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.6"
   }
 }
