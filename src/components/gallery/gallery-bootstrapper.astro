@@ -1,0 +1,17 @@
+---
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+import Gallery from "./gallery.svelte";
+
+const gallery: ExtendGalleryType[] = await getCollection("gallery");
+
+for (let index = 0; index < gallery.length; index++) {
+  const convert = await getImage({
+    src: gallery[index].data.img,
+  });
+
+  gallery[index].imageResult = convert;
+}
+---
+
+<Gallery images={gallery} client:idle />
