@@ -1,0 +1,15 @@
+---
+import Avatar from "$assets/avatar.png";
+import { Image } from "astro:assets";
+import DiscordIcon from "./discord-icon.astro";
+---
+
+<footer
+  class="flex items-center justify-between border-t-4 border-surface p-4 pb-2 font-heading text-xl md:p-16 md:pb-2 md:text-2xl"
+>
+  <span>©{new Date().getFullYear()} Aldabern</span>
+  <Image src={Avatar} alt="footer-avatar" class="w-8 md:w-auto" />
+  <p class="flex items-center gap-4">
+    <DiscordIcon />spectatortheobserver
+  </p>
+</footer>
