@@ -2,6 +2,7 @@
 import { ViewTransitions } from "astro:transitions";
 import "../styles/master.css";
 import Navbar from "$components/navbar.astro";
+import Footer from "$components/footer.astro";
 ---
 
 <html lang="en">
@@ -13,7 +14,7 @@ import Navbar from "$components/navbar.astro";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Redressed&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap"
       rel="stylesheet"
     />
     <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
@@ -27,11 +28,12 @@ import Navbar from "$components/navbar.astro";
     <ViewTransitions />
   </head>
   <body
-    class="container mx-auto flex min-h-full flex-col gap-4 border-x-2 border-surface-disabled bg-surface"
+    class="container mx-auto flex min-h-full w-full flex-col gap-4 border-x-4 border-surface bg-surface"
   >
     <Navbar />
-    <main class="flex-grow p-4 px-6">
+    <main class="flex flex-grow flex-col gap-8 px-2 md:p-4 md:px-6">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>
