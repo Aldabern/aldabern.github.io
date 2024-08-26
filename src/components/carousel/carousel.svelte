@@ -1,12 +1,10 @@
-<script lang="ts">
+<script>
   import emblaCarouselSvelte from "embla-carousel-svelte";
-  import type { EmblaCarouselType } from "embla-carousel";
   import Autoplay from "embla-carousel-autoplay";
-  import GlowyContainer from "$components/glowy-container.svelte";
 
-  let { images }: { images: ExtendGalleryType[] } = $props();
+  let { images } = $props();
 
-  let emblaApi: EmblaCarouselType;
+  let emblaApi;
 
   let options = { loop: true };
   let plugins = [
@@ -15,22 +13,21 @@
     }),
   ];
 
-  function logSlidesInViewOnce(api: EmblaCarouselType) {
-    console.log(api.slidesInView());
+  function logSlidesInViewOnce(api) {
     api.off("slidesInView", logSlidesInViewOnce);
   }
 
-  function setup(event: any) {
+  function setup(event) {
     emblaApi = event.detail;
     emblaApi.on("slidesInView", logSlidesInViewOnce);
   }
 </script>
 
-<div class="mask">
+<section>
   <div
-    class="embla"
+    class="embla overflow-hidden mask rounded-md"
     use:emblaCarouselSvelte={{ options, plugins }}
-    on:emblaInit={setup}
+    onemblaInit={setup}
   >
     <div class="embla__container">
       {#each images as image, index}
@@ -41,18 +38,26 @@
           <img
             src={image.imageResult.src}
             alt={image.data.title}
-            class="h-96 w-full object-contain"
+            class="h-[400px] w-full object-contain"
           />
         </div>
       {/each}
     </div>
   </div>
-</div>
+
+  <div class="flex gap-4 mt-4">
+    <button
+      class="outline outline-surface outline-2 rounded-[50%] px-4 py-2 text-lg hover:outline-surface-highlight"
+      onclick={() => emblaApi.scrollPrev()}>&lt;</button
+    >
+    <button
+      class="outline outline-surface outline-2 rounded-[50%] px-4 py-2 text-lg hover:outline-surface-highlight"
+      onclick={() => emblaApi.scrollNext()}>&gt;</button
+    >
+  </div>
+</section>
 
 <style>
-  .embla {
-    overflow: hidden;
-  }
   .embla__container {
     display: flex;
   }
@@ -64,6 +69,11 @@
     mask-image: url("transparent.png");
     mask-repeat: no-repeat;
     mask-position: center;
-    mask-size: 200%;
+    mask-size: 200rem 70rem;
+    transition: mask-size 400ms linear;
+  }
+
+  .mask:hover {
+    mask-size: 500rem 500rem;
   }
 </style>
