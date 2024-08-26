@@ -4,21 +4,11 @@ import Avatar from "$assets/avatar.png";
 import Typewriter from "./typewriter.svelte";
 ---
 
-<section class="mt-4 flex items-center justify-center gap-4 px-96">
-  <Image src={Avatar} alt="Avatar" />
-  <div class="flex-grow">
+<section
+  class="mx-auto mt-4 grid w-8/12 grid-flow-col items-center gap-2 md:w-7/12"
+>
+  <Image src={Avatar} alt="Avatar" class="w-12 lg:w-auto" />
+  <div>
     <Typewriter client:load />
   </div>
 </section>
-
-<style>
-  section {
-    position: relative;
-  }
-
-  section::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-</style>
