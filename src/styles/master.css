@@ -45,4 +45,21 @@
     -webkit-text-fill-color: transparent;
     background-size: 200%;
   }
+
+  .mask {
+    mask-image: url(/images/transparent.png);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 200rem 70rem;
+    -webkit-mask-image: url(/images/transparent.png);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 200rem 70rem;
+    transition: mask-size 400ms linear;
+  }
+
+  .mask:hover {
+    mask-size: 500rem 500rem;
+    -webkit-mask-size: 500rem 500rem;
+  }
 }

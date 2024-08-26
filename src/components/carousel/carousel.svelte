@@ -1,10 +1,15 @@
-<script>
+<script lang="ts">
+  import type { EmblaCarouselType } from "embla-carousel";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import Autoplay from "embla-carousel-autoplay";
 
-  let { images } = $props();
+  interface Props {
+    images: ExtendGalleryType[];
+  }
 
-  let emblaApi;
+  let { images }: Props = $props();
+
+  let emblaApi: EmblaCarouselType;
 
   let options = { loop: true };
   let plugins = [
@@ -13,11 +18,11 @@
     }),
   ];
 
-  function logSlidesInViewOnce(api) {
+  function logSlidesInViewOnce(api: EmblaCarouselType) {
     api.off("slidesInView", logSlidesInViewOnce);
   }
 
-  function setup(event) {
+  function setup(event: CustomEvent<EmblaCarouselType>) {
     emblaApi = event.detail;
     emblaApi.on("slidesInView", logSlidesInViewOnce);
   }
@@ -63,17 +68,5 @@
   }
   .embla__slide {
     flex: 0 0 100%;
-  }
-
-  .mask {
-    mask-image: url("transparent.png");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: 200rem 70rem;
-    transition: mask-size 400ms linear;
-  }
-
-  .mask:hover {
-    mask-size: 500rem 500rem;
   }
 </style>
