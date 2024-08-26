@@ -8,6 +8,7 @@
     var typewriter = new Typewriter(p, {
       loop: false,
       delay: 75,
+      deleteSpeed: 50,
       stringSplitter: (input: string) => {
         return Array.from(input) as any as string;
       },
@@ -15,10 +16,10 @@
 
     typewriter
       .typeString("Hey there 👋, welcome to my website!")
-      .pauseFor(300)
+      .pauseFor(100)
       .deleteChars(50)
       .typeString(
-        'Feel <strong>free</strong> to look around my <span style="color: var(--text-accent);">gallery</strong></span>.',
+        'Feel <strong>free</strong> to look around my <span class="text-accent" >gallery</strong></span>.',
       )
       .pauseFor(1000);
 
@@ -26,4 +27,4 @@
   });
 </script>
 
-<p bind:this={p} class="text-white font-heading text-4xl"></p>
+<p bind:this={p} class="text-white font-heading md:text-3xl lg:text-4xl"></p>
