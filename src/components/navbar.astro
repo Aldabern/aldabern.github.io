@@ -1,10 +1,5 @@
 ---
-function splitTextInHalf(text: string) {
-  const midPoint = Math.floor(text.length / 2);
-  const firstHalf = text.slice(0, midPoint);
-  const secondHalf = text.slice(midPoint);
-  return [firstHalf, secondHalf];
-}
+import { splitTextInHalf } from "src/utils/string-splitter";
 
 const text = "Aldabern";
 const [firstHalf, secondHalf] = splitTextInHalf(text);
@@ -14,6 +9,6 @@ const [firstHalf, secondHalf] = splitTextInHalf(text);
   class="sticky top-0 z-[50] bg-black bg-opacity-30 p-2 px-6 font-heading text-5xl font-extrabold backdrop-blur-3xl"
 >
   <h1>
-    <a href="/">{firstHalf}<span class="text-accent">{secondHalf}</span></a>
+    <a href="/"><span class="text-accent">{firstHalf}</span>{secondHalf}</a>
   </h1>
 </header>
