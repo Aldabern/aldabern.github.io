@@ -1,14 +1,14 @@
 <script lang="ts">
   import { flip } from "svelte/animate";
-  import SearchIcon from "./search-icon.svelte";
-  import SadIcon from "./sad-icon.svelte";
-  import GalleryItem from "./gallery-item.svelte";
+  import SearchIcon from "./icons/search-icon.svelte";
+  import SadIcon from "./icons/sad-icon.svelte";
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import { onMount } from "svelte";
-  import GalleryIcon from "./gallery-icon.svelte";
+  import GallerySortedSection from "./gallery-sorted-section.svelte";
 
-  const AUDIO_URL = "/input.mp3";
+  const AUDIO_URL = "/sfx/input.mp3";
+  let AUDIO: HTMLAudioElement;
 
   const DEBOUNCE_RATE = 250;
   const NOT_SEARCH_FOUND_LINES = [
@@ -44,59 +44,81 @@
       return images.filter((image) => {
         const imgTitle = image.data.title.toLowerCase();
         const searchLowercase = searchTerm.toLowerCase();
-        return (
-          imgTitle.includes(searchLowercase) ||
-          image.data.caption.includes(searchLowercase)
-        );
+        return imgTitle.includes(searchLowercase);
       });
     }
 
     return images;
   });
 
-  onMount(() => {});
+  let filteredImagesByYear = $derived.by(() => {
+    const data: Record<string, ExtendGalleryType[]> = {};
+
+    filteredImages.map((image) => {
+      const year = image.data.date.getFullYear();
+
+      if (!data[year]) {
+        data[year] = [];
+      }
+
+      data[year].push(image);
+    });
+
+    return Object.entries(data).sort((a, b) => Number(b[0]) - Number(a[0]));
+  });
+
+  onMount(() => {
+    AUDIO = new Audio(AUDIO_URL);
+    AUDIO.volume = 0.2;
+  });
 </script>
 
 <section class="space-y-4">
-  <h2
-    class="font-heading text-5xl font-bold tracking-wide text-accent flex items-center gap-4"
-  >
-    <GalleryIcon />
-    <span>Gallery</span>
-  </h2>
   <header
-    class="flex flex-row-reverse border border-b-2 border-transparent rounded-sm overflow-hidden data-[is-focused=true]:border-surface group"
-    data-is-focused={searchIsFocused}
+    class="flex justify-between items-center bg-accent py-2 px-2 rounded-md"
   >
-    <input
-      oninput={debounce}
-      class="bg-surface-light p-2 w-full peer focus:outline-none"
-      bind:this={searchElement}
-      placeholder="Search"
-      onfocus={() => {
-        searchIsFocused = true;
-      }}
-      onblur={() => {
-        searchIsFocused = false;
-      }}
-    />
-    <button
-      class="px-2 bg-surface-light flex items-center text-disabled hover:text-white group-data-[is-focused=true]:text-white"
-      onclick={() => searchElement.focus()}
+    <h2
+      class="font-heading text-xl md:text-4xl font-bold -tracking-wide flex items-center gap-4"
     >
-      <SearchIcon
-        class="text-xl group-data-[is-focused=true]:text-2xl transition-all ease-linear duration-150"
+      <span>Gallery ({filteredImages.length})</span>
+    </h2>
+    <div
+      class="flex flex-row-reverse border-b-2 border-transparent rounded-md overflow-hidden data-[is-focused=true]:border-surface-highlight group data-[is-focused=true]:flex-grow-[0.5] transition-all duration-200 ease-linear"
+      data-is-focused={searchIsFocused}
+    >
+      <input
+        oninput={debounce}
+        class="bg-surface-light p-1 md:p-2 w-full peer focus:outline-none"
+        bind:this={searchElement}
+        placeholder="Search"
+        onfocus={() => {
+          searchIsFocused = true;
+          AUDIO.play();
+        }}
+        onblur={() => {
+          searchIsFocused = false;
+          AUDIO.play();
+        }}
       />
-    </button>
+      <button
+        class="px-2 bg-surface-light flex items-center text-disabled hover:text-white group-data-[is-focused=true]:text-white"
+        onclick={() => searchElement.focus()}
+      >
+        <SearchIcon
+          class=" text-lg md:text-xl group-data-[is-focused=true]:text-xl md:group-data-[is-focused=true]:text-2xl transition-all ease-linear duration-150"
+        />
+      </button>
+    </div>
   </header>
 
+  <!-- Not Found Images -->
   {#if filteredImages.length <= 0}
     <div
-      class="text-7xl flex items-center gap-2 justify-center mt-8"
+      class=" mt-8 h-[720px]"
       in:fly={{ duration: 150, easing: quintOut, y: 100 }}
     >
-      <SadIcon class="animate-bounce" />
-      <p class="text-5xl font-heading">
+      <p class="md:text-5xl font-heading mt-8 flex gap-4">
+        <SadIcon class="animate-bounce" />
         {NOT_SEARCH_FOUND_LINES[
           Math.floor(Math.random() * NOT_SEARCH_FOUND_LINES.length)
         ]}
@@ -104,11 +126,13 @@
     </div>
   {/if}
 
-  <div class="grid grid-cols-4 gap-8">
-    {#each filteredImages as image (image.id)}
+  <section class="grid grid-cols-1 gap-4">
+    {#each filteredImagesByYear as imagesByYear (imagesByYear[0])}
+      {@const year = imagesByYear[0]}
+      {@const results = imagesByYear[1]}
       <div animate:flip={{ duration: 250 }}>
-        <GalleryItem {image} />
+        <GallerySortedSection {year} {results} />
       </div>
     {/each}
-  </div>
+  </section>
 </section>
