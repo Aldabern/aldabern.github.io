@@ -2,6 +2,7 @@
   import type { EmblaCarouselType } from "embla-carousel";
   import emblaCarouselSvelte from "embla-carousel-svelte";
   import Autoplay from "embla-carousel-autoplay";
+  import Fade from "embla-carousel-fade";
 
   interface Props {
     images: ExtendGalleryType[];
@@ -13,29 +14,30 @@
 
   let options = { loop: true };
   let plugins = [
+    Fade(),
     Autoplay({
-      delay: 4000,
+      delay: 7000,
     }),
   ];
 
-  function logSlidesInViewOnce(api: EmblaCarouselType) {
-    api.off("slidesInView", logSlidesInViewOnce);
+  function change() {
+    console.log("Changed");
   }
 
   function setup(event: CustomEvent<EmblaCarouselType>) {
     emblaApi = event.detail;
-    emblaApi.on("slidesInView", logSlidesInViewOnce);
+    emblaApi.on("settle", change);
   }
 </script>
 
-<section>
+<section class="relative group">
   <div
-    class="embla overflow-hidden mask rounded-md"
+    class="embla overflow-hidden rounded-md"
     use:emblaCarouselSvelte={{ options, plugins }}
     onemblaInit={setup}
   >
     <div class="embla__container">
-      {#each images as image, index}
+      {#each images as image}
         <div
           class="embla__slide bg-[var(--color)]"
           style="--color: {image.data.color};"
@@ -50,7 +52,9 @@
     </div>
   </div>
 
-  <div class="flex gap-4 mt-4">
+  <div
+    class="opacity-0 transition-opacity duration-700 ease-linear flex justify-between items-center px-4 gap-4 mt-4 absolute inset-0 group-hover:opacity-100"
+  >
     <button
       class="outline outline-surface outline-2 rounded-[50%] px-4 py-2 text-lg hover:outline-surface-highlight"
       onclick={() => emblaApi.scrollPrev()}>&lt;</button
