@@ -20,6 +20,9 @@ dependencies:
   embla-carousel-autoplay:
     specifier: ^8.2.0
     version: 8.2.0(embla-carousel@8.2.0)
+  embla-carousel-fade:
+    specifier: ^8.2.0
+    version: 8.2.0(embla-carousel@8.2.0)
   embla-carousel-svelte:
     specifier: ^8.2.0
     version: 8.2.0(svelte@5.0.0-next.237)
@@ -1762,6 +1765,14 @@ packages:
 
   /embla-carousel-autoplay@8.2.0(embla-carousel@8.2.0):
     resolution: {integrity: sha512-+u5I5h27tnEl9D5IiY4n3Q5DrT2XuNggZ6P/785cETYZslEVGHPevbyzuryxGNi1taXfrgvwrbMnisfUyUmytw==}
+    peerDependencies:
+      embla-carousel: 8.2.0
+    dependencies:
+      embla-carousel: 8.2.0
+    dev: false
+
+  /embla-carousel-fade@8.2.0(embla-carousel@8.2.0):
+    resolution: {integrity: sha512-Gbm9hSlsB2EUwhE4sM5+R+8uY0zKqflZmkzgu/4beLx5Z4AV7CG2hgxxfDUg5DHe18FfQyFrCFcYFog+N21jBA==}
     peerDependencies:
       embla-carousel: 8.2.0
     dependencies:
