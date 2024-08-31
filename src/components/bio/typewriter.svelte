@@ -17,7 +17,7 @@
     typewriter
       .typeString("Hey there 👋, welcome to my website!")
       .pauseFor(100)
-      .deleteChars(50)
+      .typeString("<br/>")
       .typeString(
         'Feel <strong>free</strong> to look around my <span class="text-accent" >gallery</strong></span>.',
       )
