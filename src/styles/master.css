@@ -22,7 +22,7 @@
     --clr-2: hsl(185, 63%, 60%);
     --clr-3: hsl(216, 63%, 45%);
     /* Font Style */
-    --font-heading: "Gochi Hand", cursive;
+    --font-heading: "Concert One", system-ui;
   }
 
   html {
