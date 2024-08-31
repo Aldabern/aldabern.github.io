@@ -34,7 +34,7 @@
 </header>
 {#if open}
   <div
-    class="grid grid-cols-2 lg:grid-cols-4 gap-8 px-2 md:px-0 mt-6"
+    class="grid grid-cols-2 lg:grid-cols-3 gap-8 px-2 md:px-0 mt-6"
     transition:slide={{ axis: "y" }}
   >
     {#each props.results as image (image.id)}

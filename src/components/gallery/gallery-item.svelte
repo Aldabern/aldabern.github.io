@@ -25,16 +25,16 @@
       <img
         src={image.imageResult.src}
         alt={image.data.caption}
-        class="block w-full object-cover md:h-96 h-48"
+        class="block w-full object-cover lg:h-96 h-48"
       />
     </section>
     <div class="p-2 bg-surface-light md:py-4 rounded-b-md">
       <h3
-        class="font-heading text-lg md:text-4xl font-bold text-center group-hover:text-accent group-hover:tracking-widest transition-[letter-spacing] group-hover:text-effect"
+        class="font-heading text-lg md:text-4xl font-bold text-center group-hover:text-accent group-hover:tracking-widest transition-[letter-spacing] group-hover:text-effect tracking-wide"
       >
         {image.data.title}
       </h3>
-      <p class="mb-2">{image.data.caption}</p>
+      <p class="my-2">{image.data.caption}</p>
       <time
         class="text-accent font-bold tracking-widest"
         datetime={image.data.date.toISOString()}
