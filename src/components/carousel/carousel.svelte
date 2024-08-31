@@ -20,13 +20,8 @@
     }),
   ];
 
-  function change() {
-    console.log("Changed");
-  }
-
   function setup(event: CustomEvent<EmblaCarouselType>) {
     emblaApi = event.detail;
-    emblaApi.on("settle", change);
   }
 </script>
 
