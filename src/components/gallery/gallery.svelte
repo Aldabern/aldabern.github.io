@@ -78,7 +78,7 @@
     class="flex justify-between items-center bg-accent py-2 px-2 rounded-md"
   >
     <h2
-      class="font-heading text-xl md:text-4xl font-bold -tracking-wide flex items-center gap-4"
+      class="font-heading text-xl md:text-4xl font-bold tracking-wide flex items-center gap-4 text-black"
     >
       <span>Gallery ({filteredImages.length})</span>
     </h2>
